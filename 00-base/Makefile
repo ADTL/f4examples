@@ -2,7 +2,7 @@
 #* Author: Boris Vinogradov(nis) : no111u3@gmail.com
 #* File: Makefile
 #* Type: Makefile
-#* Project: f4examples/Makefile
+#* Project: f4examples/00-base
 #* 2012
 #*-----------------------------------------------------------------------------
 # Compilator prefix
