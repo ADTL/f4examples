@@ -10,4 +10,6 @@
 #include "work.h"
 /* work */
 void work() {
+    /* infinity loop */
+    while (1);
 }
