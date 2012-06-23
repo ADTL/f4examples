@@ -9,7 +9,7 @@
 #include "stm32f4xx.h"
 /* external vars */
 extern unsigned long _estack;
-extern void work;
+extern void work();
 /* prototypes of functions */
 void reset_hander(void);
 /* reset handler */

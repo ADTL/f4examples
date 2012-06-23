@@ -11,7 +11,7 @@ CROSS_PREFIX=arm-softfloat-linux-gnueabi-
 CC=$(CROSS_PREFIX)gcc
 OBJCOPY=$(CROSS_PREFIX)objcopy
 # Paths
-STM_PATH=../../stlink/example
+STM_PATH=/home/nis/stm32/stlink/example
 LIBS_STM_PATH=$(STM_PATH)/libs_stm
 # Platform
 PLATFORM=stm32f4xx
