@@ -38,18 +38,17 @@ void bus_fault_handler(void) {
 void usage_fault_handler(void) {
     while (1);
 }
+/* system tick timer handler */
+void sys_tick_handler(void) {
+    hard_delay();
+}
 /* exti0 irq handler */
 void exti0_irq_handler(void) {
-    /* if button pressed */
-    if (BUT_PORT->IDR & BUT1) {
-        /* enable leds */
-        LED_PORT->ODR |= ALL_LEDS;
-    }
-    /* if button not pressed */
-    else {
-        /* disable leds */
-        LED_PORT->ODR &= ~ALL_LEDS;
-    }
+    LED_PORT->ODR ^= GREEN_LED | RED_LED;
+    /* clear pending irq */
+    EXTI->PR |= EXTI_PR_PR0;
+    /* disable exti0 interrupt */
+    EXTI->IMR &= ~EXTI_IMR_MR0;
 }
 /* table of Cortex vectors */
 void *vector_table[] __attribute__ ((section(".vectors"))) = {
@@ -69,7 +68,7 @@ void *vector_table[] __attribute__ ((section(".vectors"))) = {
     0,                  /*!#11 cortex-m4 debug monitor interrupt */
     0,                  /*!#12 reserved */
     0,                  /*!#13 cortex-m4 penable request for system service interrupt */
-    0,                  /*!#14 cortex-m4 system tick timer interrupt */
+    sys_tick_handler,   /*!#14 cortex-m4 system tick timer interrupt */
     /* External Interrupts */
     0,                  /*!%0 Window WatchDog              */                                        
     0,                  /*!%1 PVD through EXTI Line detection */                        
