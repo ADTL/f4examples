@@ -37,6 +37,8 @@ void work() {
     TIM4->CCMR2 |= TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2;
     /* tim4 setup cc chanel1..4 to corresponding output pin */
     TIM4->CCER |= TIM_CCER_CC1E | TIM_CCER_CC2E | TIM_CCER_CC3E | TIM_CCER_CC4E;
+    /* enable CSS */
+    RCC->CR |= RCC_CR_CSSON;
     /* enable HSE and wait to ready */
     RCC->CR |= RCC_CR_HSEON;
     while ((RCC->CR & RCC_CR_HSERDY) == 0);
