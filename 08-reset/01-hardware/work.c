@@ -23,13 +23,16 @@ void work() {
     flags &= ~(1 << 24 | 1 << 1 | 1 << 0);
     /* enable led for needed flags */
     switch (flags) {
+        /* hardware reset */
         case RCC_CSR_PADRSTF:
             LED_PORT->ODR |= RED_LED;
             break;
+        /* another reset */
         default:
             LED_PORT->ODR |= ALL_LEDS;
             break;
     }
+    /* clear reset flags */
     RCC->CSR |= RCC_CSR_RMVF;
     /* infinity loop */
     while (1);
