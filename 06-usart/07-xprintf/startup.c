@@ -11,6 +11,11 @@
 #include "xprintf.h"
 /* external vars */
 extern unsigned long _estack;
+extern unsigned long __text_end;
+extern unsigned long __data_start;
+extern unsigned long __data_end;
+extern unsigned long __bss_start;
+extern unsigned long __bss_end;
 extern void work();
 extern void usart_sends(USART_TypeDef * USART, const char * buffer);
 /* prototypes of functions */
@@ -18,6 +23,18 @@ void reset_hander(void);
 void ser1_sendb(unsigned char byte);
 /* reset handler */
 void reset_handler(void) {
+    unsigned long *src;
+    unsigned long *dest;
+    
+    src = &__text_end;
+    dest = &__data_start;
+    if (src != dest)
+        while(dest < &__data_end)
+            *(dest++) = *(src++);
+ 
+    dest = &__bss_start;
+    while(dest < &__bss_end)
+        *(dest++) = 0;
     /* call working code */
     work();
 }
@@ -44,10 +61,8 @@ void usage_fault_handler(void) {
 /* timer4 irq handler */
 void tim4_irq_hanlder(void) {
     static unsigned int counter;
-    if (counter > 100)
-        counter = 0;
     counter++;
-    xdev_out(ser1_sendb);
+    
     if (TIM4->SR & TIM_SR_UIF) {
         /* switch leds */
         LED_PORT->ODR ^= RED_LED;

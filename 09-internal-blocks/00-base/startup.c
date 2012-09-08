@@ -7,7 +7,6 @@
 *-----------------------------------------------------------------------------*/
 /* include headers */
 #include "stm32f4xx.h"
-#include "work.h"
 /* external vars */
 extern unsigned long _estack;
 extern unsigned long __text_end;

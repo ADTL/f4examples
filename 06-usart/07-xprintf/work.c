@@ -10,6 +10,8 @@
 #include "core_cm4.h"
 #include "work.h"
 #include "gpio_af.h"
+#include "xprintf.h"
+void ser1_sendb(unsigned char byte);
 /* work */
 void work() {
     /* enable led & usart port*/
@@ -37,6 +39,8 @@ void work() {
     TIM4->DIER |= TIM_DIER_UIE;
     /* tim4 enable clock */
     TIM4->CR1 |= TIM_CR1_CEN;
+    /* preinit xprintf lib */
+    xdev_out(ser1_sendb);
     /* nvic enable tim4 irq */
     NVIC_EnableIRQ(TIM4_IRQn);
     /* infinity loop */

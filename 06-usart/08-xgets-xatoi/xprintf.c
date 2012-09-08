@@ -27,10 +27,10 @@ void xputc (char c)
 {
 	if (_CR_CRLF && c == '\n') xputc('\r');		/* CR -> CRLF */
 
-	/*if (outptr) {
+	if (outptr) {
 		*outptr++ = (unsigned char)c;
 		return;
-	}*/
+	}
 
 	if (xfunc_out) xfunc_out((unsigned char)c);
 }
@@ -353,7 +353,7 @@ int xatoi (			/* 0:Failed, 1:Successful */
 		s = 1;
 		c = *(++(*str));
 	}
-    
+
 	if (c == '0') {
 		c = *(++(*str));
 		switch (c) {
